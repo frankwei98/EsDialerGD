@@ -182,7 +182,7 @@ void update_local_time(AUTH_CONTEXT *ctx) {
     struct tm *lt = localtime(&t);
     snprintf(ctx->local_time, 32, "%04d-%02d-%02d %02d:%02d:%02d",
              lt->tm_year + 1900,
-             lt->tm_mon,
+             lt->tm_mon + 1,
              lt->tm_mday,
              lt->tm_hour,
              lt->tm_min,
