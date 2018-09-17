@@ -15,6 +15,11 @@
 
 - 2018-05-24：EsDialerGD发布。
 
+## 下载
+
+仅macOS和Win32。
+地址：https://github.com/claw6148/EsDialerGD/releases
+
 ## 使用方式
 
 程序通过**环境变量**的方式进行参数传递
