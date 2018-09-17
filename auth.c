@@ -52,7 +52,7 @@ void build_ticket_payload(
         char *data,
         char *md5_hex
 ) {
-    u_char buf[1024] = {0};
+    char buf[1024] = {0};
     snprintf(buf,
              sizeof(buf),
              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -74,7 +74,7 @@ void build_ticket_payload(
              ctx->ostag,
              ctx->local_time
     );
-    payload_encode(data, md5_hex, buf);
+    payload_encode(data, md5_hex, (const u_char *) buf);
 }
 
 void build_auth_payload(
@@ -84,7 +84,7 @@ void build_auth_payload(
         const char *userid,
         const char *passwd
 ) {
-    u_char buf[1024] = {0};
+    char buf[1024] = {0};
     snprintf(buf,
              sizeof(buf),
              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -105,7 +105,7 @@ void build_auth_payload(
              ctx->user_agent,
              ctx->local_time
     );
-    payload_encode(data, md5_hex, buf);
+    payload_encode(data, md5_hex, (const u_char *) buf);
 }
 
 void build_keep_payload(
@@ -113,7 +113,7 @@ void build_keep_payload(
         char *data,
         char *md5_hex
 ) {
-    u_char buf[1024] = {0};
+    char buf[1024] = {0};
     snprintf(buf,
              sizeof(buf),
              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -130,7 +130,7 @@ void build_keep_payload(
              ctx->host_name,
              ctx->client_id
     );
-    payload_encode(data, md5_hex, buf);
+    payload_encode(data, md5_hex, (const u_char *) buf);
 }
 
 void build_term_payload(
@@ -139,7 +139,7 @@ void build_term_payload(
         char *md5_hex,
         const int reason
 ) {
-    u_char buf[1024] = {0};
+    char buf[1024] = {0};
     snprintf(buf,
              sizeof(buf),
              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -158,7 +158,7 @@ void build_term_payload(
              reason,
              ctx->client_id
     );
-    payload_encode(data, md5_hex, buf);
+    payload_encode(data, md5_hex, (const u_char *) buf);
 }
 
 void build_headers(
