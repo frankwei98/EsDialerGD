@@ -40,7 +40,7 @@ void sig_handler(int sig) {
 
 int main(int argc, char *argv[]) {
     printf("** EsDialerGD by ChiL.\n");
-    printf("** Build date: 2018-09-14\n");
+    printf("** Build date: 2018-09-17\n");
     printf("** Project: https://github.com/claw6148/EsDialerGD\n\n");
 
     char *userid = getenv("ESD_USERID"); // 用户名
@@ -73,6 +73,7 @@ int main(int argc, char *argv[]) {
     signal(SIGTERM, sig_handler);
 
     int retry = 0;
+    int auth_succ = 0;
     for (;;) {
         dbgout("Start dialing...");
         memset(&auth_ctx, 0, sizeof(auth_ctx));
@@ -93,6 +94,8 @@ int main(int argc, char *argv[]) {
             goto _fail;
         if (auth_login(&auth_ctx, userid, passwd)) goto _fail;
         dbgout("Logged in!");
+        auth_succ = 1;
+        retry = 0;
         long interval = 1;
         uint32_t cnt;
         for (cnt = 1;; ++cnt) {
@@ -112,14 +115,15 @@ int main(int argc, char *argv[]) {
         dbgout(FAILED_STR);
         _retry:
         if (retry_delay <= 0) break;
+        int real_retry_delay = auth_succ ? 0 : retry_delay;
+        auth_succ = 0;
         if (retry_count != -1 && (++retry) >= retry_count) break;
         if (retry_count == -1) {
-            dbgout("Retry in %d second(s).", retry_delay);
+            dbgout("Retry in %d second(s).", real_retry_delay);
         } else {
-            dbgout("(%d/%d) Retry in %d second(s).", retry, retry_count, retry_delay);
+            dbgout("(%d/%d) Retry in %d second(s).", retry, retry_count, real_retry_delay);
         }
-        sleep(retry_delay);
+        sleep((unsigned int) real_retry_delay);
     }
     return 0;
 }
-
