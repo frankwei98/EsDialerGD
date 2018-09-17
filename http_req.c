@@ -34,7 +34,7 @@ int http_req_send(const char *url,
     int ret = -1;
     CURL *curl = curl_easy_init();
     if (curl) {
-        CURL_UD ud = {buf_len, 0, buf};
+        CURL_UD ud = {buf_len, 0, (u_char *) buf};
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, !incl_hdr);
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &ud);
