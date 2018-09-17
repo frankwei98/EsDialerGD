@@ -202,8 +202,11 @@ int get_basic_info(AUTH_CONTEXT *ctx, const char *url, char *redir_url) {
     if (ctx->ipv4_addr[0]) goto _succ;
     if (str_extract(ctx->ipv4_addr, redir_url, "wlanuserip=", "&")) {
         if (is_loc_redir && str_extract(ctx->ipv4_addr, redir_url, "wlanuserip=", "\r")) goto _fail;
-        else
-            strcpy(ctx->ipv4_addr, strstr(redir_url, "wlanuserip=") + 11);
+        else {
+            char *p_userip = strstr(redir_url, "wlanuserip=");
+            if (!p_userip) goto _fail;
+            strcpy(ctx->ipv4_addr, p_userip + 11);
+        }
     }
     if (is_loc_redir) redir_url[strlen(redir_url) - 1] = '\0';
     _succ:
