@@ -94,9 +94,10 @@ int main(int argc, char *argv[]) {
             goto _fail;
         if (auth_login(&auth_ctx, userid, passwd)) goto _fail;
         dbgout("Logged in!");
+        long interval = auth_keep(&auth_ctx);
+        if (interval <= 0) goto _fail;
         auth_succ = 1;
         retry = 0;
-        long interval = 1;
         uint32_t cnt;
         for (cnt = 1;; ++cnt) {
             //心跳包
