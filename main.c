@@ -40,7 +40,7 @@ void sig_handler(int sig) {
 
 int main(int argc, char *argv[]) {
     printf("** EsDialerGD by ChiL.\n");
-    printf("** Build date: 2018-09-17\n");
+    printf("** Build date: 2018-09-18\n");
     printf("** Project: https://github.com/claw6148/EsDialerGD\n\n");
 
     char *userid = getenv("ESD_USERID"); // 用户名
