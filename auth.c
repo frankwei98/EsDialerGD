@@ -238,6 +238,10 @@ int get_config(AUTH_CONTEXT *ctx,
 }
 
 int get_ticket(AUTH_CONTEXT *ctx) {
+    if (!ctx->ticket_url[0]) {
+        dbgout("ticket_url not found");
+        goto _fail;
+    }
     update_local_time(ctx);
     char data[UD_BUF_SIZE] = {0};
     char buf[UD_BUF_SIZE] = {0};
@@ -265,6 +269,10 @@ int get_ticket(AUTH_CONTEXT *ctx) {
 }
 
 int send_auth(AUTH_CONTEXT *ctx, const char *userid, const char *passwd) {
+    if (!ctx->auth_url[0]) {
+        dbgout("auth_url not found");
+        goto _fail;
+    }
     update_local_time(ctx);
     char data[UD_BUF_SIZE] = {0};
     char buf[UD_BUF_SIZE] = {0};
@@ -297,6 +305,10 @@ int send_auth(AUTH_CONTEXT *ctx, const char *userid, const char *passwd) {
 }
 
 int send_keep(AUTH_CONTEXT *ctx, long *interval) {
+    if (!ctx->keep_url[0]) {
+        dbgout("keep_url not found");
+        goto _fail;
+    }
     update_local_time(ctx);
     char data[UD_BUF_SIZE] = {0};
     char buf[UD_BUF_SIZE] = {0};
@@ -326,6 +338,10 @@ int send_keep(AUTH_CONTEXT *ctx, long *interval) {
 }
 
 int send_term(AUTH_CONTEXT *ctx, int reason) {
+    if (!ctx->term_url[0]) {
+        dbgout("term_url not found");
+        goto _fail;
+    }
     update_local_time(ctx);
     char data[UD_BUF_SIZE] = {0};
     char md5_hex[64] = {0};
