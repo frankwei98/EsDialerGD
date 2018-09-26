@@ -5,7 +5,9 @@
 /* HTTP请求 */
 
 #include <stdio.h>
+#ifndef USE_CURL_CMD
 #include <curl/curl.h>
+#endif
 #include <string.h>
 #include <stdlib.h>
 #include "http_req.h"
