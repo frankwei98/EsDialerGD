@@ -1,5 +1,6 @@
 CROSS=
 CC=gcc
+# LDFLAGS=-DUSE_CURL_CMD
 
 EsDialer : main.o md5.o str_extract.o http_req.o codec.o auth.o
 	$(CROSS)$(CC) -std=c99 -o EsDialer main.o md5.o str_extract.o http_req.o codec.o auth.o -lcurl
@@ -15,7 +16,7 @@ str_extract.o : str_extract.c str_extract.h
 	$(CROSS)$(CC) -std=c99 -c str_extract.c
 
 http_req.o : http_req.c http_req.h
-	$(CROSS)$(CC) -std=c99 -c http_req.c
+	$(CROSS)$(CC) $(LDFLAGS) -std=c99 -c http_req.c
 
 codec.o : codec.c codec.h md5.h
 	$(CROSS)$(CC) -std=c99 -c codec.c

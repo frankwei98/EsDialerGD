@@ -38,8 +38,15 @@ int auth_init(AUTH_CONTEXT *ctx,
               const char *ostag,
               const char *host_name,
               const char *user_agent,
-              const char *algo_id,
-              const char *client_id
+              const char *algo_id
+);
+
+void auth_manual_set_config(AUTH_CONTEXT *ctx,
+                            const char *ticket_url,
+                            const char *auth_url,
+                            const char *keep_url,
+                            const char *term_url,
+                            const char *ipv4_addr
 );
 
 int auth_login(AUTH_CONTEXT *ctx, const char *userid, const char *passwd);
